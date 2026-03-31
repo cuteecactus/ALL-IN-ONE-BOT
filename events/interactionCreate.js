@@ -11,10 +11,20 @@ const Suggestion = require('../models/suggestions/Suggestion');
 const truths = require('../data/truthordare/truth.json');
 const dares = require('../data/truthordare/dare.json');
 const DisabledCommand = require('../models/commands/DisabledCommands'); 
+const privateGuildId = process.env.PRIVATE_GUILD_ID || require('../config.json').privateGuildId;
 
 module.exports = {
     name: 'interactionCreate',
     async execute(interaction, client) {
+        if (privateGuildId && interaction.guildId && interaction.guildId !== privateGuildId) {
+            if (interaction.isRepliable() && !interaction.replied && !interaction.deferred) {
+                await interaction.reply({
+                    content: `This bot is private and only available in server: \`${privateGuildId}\`.`,
+                    ephemeral: true
+                }).catch(() => {});
+            }
+            return;
+        }
     
         if (interaction.isButton()) {
             const { customId, user } = interaction;

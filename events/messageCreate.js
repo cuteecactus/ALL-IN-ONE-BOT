@@ -11,6 +11,7 @@ const stickyTimers = new Map();
 const AutoResponderModel = require('../models/autoresponses/schema');
 const ServerConfig = require('../models/serverConfig/schema');
 const { handleFaqMessage } = require('../handlers/faqHandler');
+const privateGuildId = process.env.PRIVATE_GUILD_ID || require('../config.json').privateGuildId;
 
 
 const MILESTONES = [10, 25, 50, 100, 250, 500, 1000, 2500, 5000, 10000];
@@ -19,6 +20,7 @@ module.exports = {
     name: 'messageCreate',
     async execute(message, client) {
         if (message.author.bot || !message.guild) return;
+        if (privateGuildId && message.guild.id !== privateGuildId) return;
 
 
         try {

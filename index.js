@@ -1,9 +1,7 @@
-const { connectToDatabase } = require('./mongodb');
 const initializeBot = require('./utils/intializer');
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 (async () => {
-    await connectToDatabase();
     const client = require('./main');
     await new Promise((resolve) => {
         if (client.isReady()) {
