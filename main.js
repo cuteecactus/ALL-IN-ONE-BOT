@@ -15,6 +15,7 @@ const client = new Client({
 
 client.commands = new Collection();
 require('events').defaultMaxListeners = 100;
+const privateGuildId = process.env.PRIVATE_GUILD_ID || config.privateGuildId;
 
 
 const loadEvents = require('./handlers/events');
@@ -128,6 +129,15 @@ client.on('interactionCreate', afkButtonHandler.execute);
 client.once('ready', async () => {
     console.log(`[ CORE ] Bot Name: ${client.user.tag}`);
     console.log(`[ CORE ] Client ID: ${client.user.id}`);
+    if (privateGuildId) {
+        for (const [guildId, guild] of client.guilds.cache) {
+            if (guildId !== privateGuildId) {
+                await guild.leave().catch(() => {});
+            }
+        }
+        console.log(`[ CORE ] Private mode enabled for guild: ${privateGuildId}`);
+    }
+
     loadLogHandlers(client);
     new ModMailHandler(client);
     levelingHandler = new LevelingHandler(client);

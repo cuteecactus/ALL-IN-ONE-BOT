@@ -45,7 +45,7 @@
 <h4>Step 1: Update <code>config.json</code> [ USE ENV FILES ]</h4>
 
 <ol>
-  <li>Open the <code>config.json</code> and add your MongoDB URL.</li>
+  <li>Open <code>config.json</code> and set <code>privateGuildId</code> to your server ID.</li>
 </ol>
 
 <h4>ENV SETUP</h4>
@@ -60,7 +60,7 @@ SPOTIFY_CLIENT_SECRET=
 TWITCH_CLIENT_ID=
 TWITCH_ACCESS_TOKEN=
 INSTAGRAM_ACCESS_TOKEN=
-MONGODB_URI=
+PRIVATE_GUILD_ID=
 DISCORD_USER_ID=
 BOT_API=
 </pre>

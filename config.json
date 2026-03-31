@@ -2,7 +2,7 @@
     "token": "",
     "language": "en",
     "prefix": "!",
-    "mongodbUri": "",
+    "privateGuildId": "",
     "excessCommands": {
         "other": true,
         "hentai": true,
